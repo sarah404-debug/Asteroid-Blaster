@@ -1,12 +1,16 @@
+
+
+
+
 #ifndef BULLET_H
 #define BULLET_H
 
 #include "Entity.h"
 
-class bullet : public Entity
+class Bullet : public Entity
 {
 public:
-    bullet();
+    Bullet();
     void update() override;
 };
 
