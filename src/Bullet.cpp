@@ -1,26 +1,23 @@
 #include "Bullet.h"
+#include "Globals.h"
 #include <cmath>
-#include "Globals.cpp"
 
-
-
-
-bullet::bullet()
+Bullet::Bullet()
 {
     name = "bullet";
 }
 
-void bullet::update()
+void Bullet::update()
 {
     dx = cos(angle * DEGTORAD) * 6;
     dy = sin(angle * DEGTORAD) * 6;
+
     x += dx;
     y += dy;
 
     if (x > W || x < 0 || y > H || y < 0)
-        life = 0;
+        life = false;
 }
-
 
 
 //This file explains how bullets behave.
