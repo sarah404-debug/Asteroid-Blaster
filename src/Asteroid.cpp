@@ -1,32 +1,24 @@
 #include "Asteroid.h"
-#include <cstdlib>
 #include "Globals.h"
+#include <cstdlib>
 
-
-asteroid::asteroid()
+Asteroid::Asteroid()
 {
-    dx = rand()%8 - 4;
-    dy = rand()%8 - 4;
+    dx = rand() % 8 - 4;
+    dy = rand() % 8 - 4;
     name = "asteroid";
-    lives = 5;   // starts with 5 hit points
 }
 
-
-void asteroid::update()
+void Asteroid::update()
 {
     x += dx;
     y += dy;
 
-    if (x > W)
-        x = 0;
-    if (x < 0)
-        x = W;
-    if (y > H)
-        y = 0;
-    if (y < 0)
-        y = H;
+    if (x > W) x = 0;
+    if (x < 0) x = W;
+    if (y > H) y = 0;
+    if (y < 0) y = H;
 }
-
 
 
 //This file explains how the asteroid behaves.
