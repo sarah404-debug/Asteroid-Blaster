@@ -1,17 +1,16 @@
+
+
 #ifndef ASTEROID_H
 #define ASTEROID_H
 
 #include "Entity.h"
 
-
-
-class asteroid : public Entity {
+class Asteroid : public Entity
+{
 public:
-    int lives;
-    asteroid();
+    Asteroid();
     void update() override;
 };
-
 
 #endif
 
