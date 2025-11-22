@@ -1,18 +1,22 @@
+//// ZAINAB
+
+
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+using namespace sf;
 
 class Animation
 {
 public:
     float Frame, speed;
-    sf::Sprite sprite;
-    std::vector<sf::IntRect> frames;
+    Sprite sprite;
+    std::vector<IntRect> frames;
 
     Animation();
-    Animation(sf::Texture &t, int x, int y, int w, int h, int count, float Speed);
+    Animation(Texture &t, int x, int y, int w, int h, int count, float Speed);
+
     void update();
     bool isEnd();
 };
