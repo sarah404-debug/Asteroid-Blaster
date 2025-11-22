@@ -48,4 +48,3 @@ void Player::update()
 // // maxSpeed ensures the player cannot move too fast. The current speed is calculated using the Pythagorean theorem: sqrt(dx*dx + dy*dy). If speed exceeds maxSpeed, it scales dx and dy proportionally.
 // // Updates the player’s position (x and y) based on dx and dy.
 // // Wraps the player around the screen: if the player moves off one edge, they appear on the opposite side (W = width, H = height).
-// // In short, this class controls how the player spaceship accelerates, moves, slows down, and wraps around the screen.
