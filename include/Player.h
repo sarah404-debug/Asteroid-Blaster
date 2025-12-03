@@ -23,15 +23,6 @@ public:
     void addLife(int& lives);
     void activateShield();
     void updatePowerUps();
-    
-    // Power-up methods
-    void activateSpeedBoost();
-    void addLife(int& lives);
-    void activateShield();
-    void updatePowerUps();
 };
 
 #endif
-
-
-//code to remove
