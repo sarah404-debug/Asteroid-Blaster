@@ -1,1 +1,3 @@
 sarah: 29
+huzaifa: 24
+zainab: 32
