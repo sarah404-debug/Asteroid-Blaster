@@ -1,9 +1,14 @@
+///code to remove
+
+
 #include "Asteroid.h"
 #include "Globals.h"
 #include <cstdlib>
 
 Asteroid::Asteroid()
 {
+    dx = rand() % 4 - 2;
+    dy = rand() % 4 - 2;
     dx = rand() % 4 - 2;
     dy = rand() % 4 - 2;
     name = "asteroid";

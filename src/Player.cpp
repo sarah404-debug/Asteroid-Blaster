@@ -1,3 +1,4 @@
+
 #include "Player.h"
 #include "Globals.h"
 #include <cmath>
@@ -52,37 +53,6 @@ void Player::update()
     if (y < 0) y = H;
 }
 
-void Player::activateSpeedBoost()
-{
-    speedBoostTimer = 300; // 5 seconds at 60 FPS
-}
-
-void Player::addLife(int& lives)
-{
-    if (lives < 5) // Max 5 lives
-        lives++;
-}
-
-void Player::activateShield()
-{
-    hasShield = true;
-    shieldTimer = 360; // 6 seconds at 60 FPS
-}
-
-void Player::updatePowerUps()
-{
-    // Update speed boost timer
-    if (speedBoostTimer > 0)
-        speedBoostTimer--;
-    
-    // Update shield timer
-    if (shieldTimer > 0)
-    {
-        shieldTimer--;
-        if (shieldTimer <= 0)
-            hasShield = false;
-    }
-}
 // // This file explains how the player moves:
 // // Constructor (player())
 // // Sets the entity’s name to "player" so the game can identify it.

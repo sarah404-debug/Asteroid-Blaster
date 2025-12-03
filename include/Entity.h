@@ -19,7 +19,7 @@ public:
 
     void settings(const Animation &a, int X, int Y, float Angle = 0, int radius = 1);
     virtual void update();
-    void draw(sf::RenderWindow &app);
+    virtual void draw(sf::RenderWindow &app);
 };
 
 bool isCollide(Entity *a, Entity *b);
