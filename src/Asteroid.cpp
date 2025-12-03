@@ -4,8 +4,8 @@
 
 Asteroid::Asteroid()
 {
-    dx = rand() % 8 - 4;
-    dy = rand() % 8 - 4;
+    dx = rand() % 4 - 2;
+    dy = rand() % 4 - 2;
     name = "asteroid";
 }
 
