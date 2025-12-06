@@ -11,11 +11,11 @@ A classic space shooter game built with C++ and SFML where you navigate through 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Compilation](#compilation)
 - [How to Play](#how-to-play)
 - [Power-Ups](#power-ups)
 - [Game Mechanics](#game-mechanics)
 - [Project Structure](#project-structure)
-- [Compilation](#compilation)
 - [Controls](#controls)
 - [Credits](#credits)
 
@@ -39,6 +39,23 @@ Before running the game, ensure you have:
 - **C++ Compiler**: MinGW-w64 (GCC 7.3.0 or higher)
 - **SFML 2.5.0**: Simple and Fast Multimedia Library
 - **Operating System**: Windows (tested), Linux/Mac (compatible with adjustments)
+
+
+##  Compilation
+
+### Windows (MinGW)
+
+```bash
+g++ main.cpp src\Animation.cpp src\Entity.cpp src\Player.cpp src\Asteroid.cpp src\Bullet.cpp src\Globals.cpp src\PowerUp.cpp src\GameState.cpp -I include -I "C:\SFML-2.5.0\include" -L "C:\SFML-2.5.0\lib" -lsfml-graphics -lsfml-window -lsfml-system -o main
+```
+
+
+### Run the Game
+
+```bash
+./main
+```
+
 
 ##  How to Play
 
@@ -111,21 +128,6 @@ The game features three Pakistani-themed power-ups that spawn randomly:
 - `Globals.h/cpp`: Global constants (screen size, conversion factors)
 - `GameState.h/cpp`: Menu and leaderboard management
 - `scores.txt`: Persistent score storage (auto-generated)
-
-##  Compilation
-
-### Windows (MinGW)
-
-```bash
-g++ main.cpp src\Animation.cpp src\Entity.cpp src\Player.cpp src\Asteroid.cpp src\Bullet.cpp src\Globals.cpp src\PowerUp.cpp src\GameState.cpp -I include -I "C:\SFML-2.5.0\include" -L "C:\SFML-2.5.0\lib" -lsfml-graphics -lsfml-window -lsfml-system -o main
-```
-
-
-### Run the Game
-
-```bash
-./main
-```
 
 ## 🎮 Controls
 
