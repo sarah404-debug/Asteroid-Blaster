@@ -43,19 +43,33 @@ Before running the game, ensure you have:
 
 ##  Compilation
 
-### Windows (MinGW)
+### Option 1: Using Makefile (Recommended)
+
+If you have `make` installed:
 
 ```bash
-g++ main.cpp src\Animation.cpp src\Entity.cpp src\Player.cpp src\Asteroid.cpp src\Bullet.cpp src\Globals.cpp src\PowerUp.cpp src\GameState.cpp -I include -I "C:\SFML-2.5.0\include" -L "C:\SFML-2.5.0\lib" -lsfml-graphics -lsfml-window -lsfml-system -o main
+make
 ```
 
+**Makefile Commands:**
+- `make` - Compile the project
+- `make run` - Compile and run the game
+- `make clean` - Remove all build files
+- `make rebuild` - Clean and rebuild from scratch
+
+### Option 2: Manual Compilation
+
+#### Linux/WSL
+
+```bash
+g++ main.cpp src/Animation.cpp src/Entity.cpp src/Player.cpp src/Asteroid.cpp src/Bullet.cpp src/Globals.cpp src/PowerUp.cpp src/GameState.cpp -I include -lsfml-graphics -lsfml-window -lsfml-system -o main
+```
 
 ### Run the Game
 
 ```bash
 ./main
 ```
-
 
 ##  How to Play
 
@@ -171,6 +185,10 @@ This project is created for educational purposes as part of an OOP course projec
 
 
 *Destroy asteroids, collect power-ups, and dominate the leaderboard!*
+
+
+
+
 
 
 
