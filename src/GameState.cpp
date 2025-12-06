@@ -15,7 +15,7 @@ void GameStateManager::setupTexts(float windowWidth, float windowHeight)
 {
     if (!fontLoaded) return;
     
-    // Main Menu Texts
+    // main menu
     titleText.setFont(font);
     titleText.setString("ASTEROID BLASTER");
     titleText.setCharacterSize(70);
@@ -41,7 +41,7 @@ void GameStateManager::setupTexts(float windowWidth, float windowHeight)
     startText.setFillColor(sf::Color::Green);
     startText.setPosition(windowWidth / 2 - 150.f, 450.f);
     
-    // Game Over Texts
+    // game over
     gameOverText.setFont(font);
     gameOverText.setString("GAME OVER");
     gameOverText.setCharacterSize(80);
@@ -73,11 +73,11 @@ void GameStateManager::handleTextInput(sf::Event& event)
     
     if (event.type == sf::Event::TextEntered)
     {
-        if (event.text.unicode == '\b' && !playerName.empty()) // Backspace
+        if (event.text.unicode == '\b' && !playerName.empty()) // backspace
         {
             playerName.pop_back();
         }
-        else if (event.text.unicode == '\r' || event.text.unicode == '\n') // Enter
+        else if (event.text.unicode == '\r' || event.text.unicode == '\n') // enter
         {
             if (!playerName.empty())
             {
@@ -112,13 +112,14 @@ void GameStateManager::drawGameOver(sf::RenderWindow& window)
 {
     if (!fontLoaded) return;
     
-    finalScoreText.setString("Your Score: " + std::to_string(finalScore));
+    //show player's current score at top
+    finalScoreText.setString(playerName + "'s Score: " + std::to_string(finalScore));
     
     window.draw(gameOverText);
     window.draw(finalScoreText);
     window.draw(leaderboardTitle);
     
-    // Draw leaderboard entries
+    //sraw leaderboard 
     for (size_t i = 0; i < leaderboardTexts.size(); i++)
     {
         window.draw(leaderboardTexts[i]);
@@ -129,7 +130,7 @@ void GameStateManager::drawGameOver(sf::RenderWindow& window)
 
 void GameStateManager::saveScore()
 {
-    // First, load all existing scores
+    // load  existing scores
     std::vector<ScoreEntry> allScores;
     std::ifstream inFile("scores.txt");
     
@@ -150,13 +151,13 @@ void GameStateManager::saveScore()
         inFile.close();
     }
     
-    // Check if player already exists
+    // cheking if player exist
     bool playerExists = false;
     for (auto& entry : allScores)
     {
         if (entry.name == playerName)
         {
-            // Update score only if new score is higher
+            // update score if new score is higher
             if (finalScore > entry.score)
             {
                 entry.score = finalScore;
@@ -171,7 +172,7 @@ void GameStateManager::saveScore()
         }
     }
     
-    // If player doesn't exist, add new entry
+    // player doesn't exist,add new entry
     if (!playerExists)
     {
         ScoreEntry newEntry;
@@ -181,7 +182,7 @@ void GameStateManager::saveScore()
         std::cout << "New player score saved: " << playerName << " - " << finalScore << std::endl;
     }
     
-    // Write all scores back to file
+    // write all scores back to file
     std::ofstream outFile("scores.txt");
     if (outFile.is_open())
     {
@@ -191,7 +192,7 @@ void GameStateManager::saveScore()
         }
         outFile.close();
         
-        // Reload leaderboard after saving
+        // load leaderboard after saving
         loadLeaderboard();
     }
     else
@@ -223,13 +224,13 @@ void GameStateManager::loadLeaderboard()
         file.close();
     }
     
-    // Sort leaderboard by score (highest first)
+    // sort leaderboard by score
     std::sort(leaderboard.begin(), leaderboard.end(), 
               [](const ScoreEntry& a, const ScoreEntry& b) {
                   return a.score > b.score;
               });
     
-    // Create text objects for top 10 scores
+    //top 10 score
     int displayCount = std::min(10, (int)leaderboard.size());
     for (int i = 0; i < displayCount; i++)
     {
@@ -237,8 +238,8 @@ void GameStateManager::loadLeaderboard()
         scoreText.setFont(font);
         scoreText.setCharacterSize(22);
         
-        // Highlight current player's score
-        if (leaderboard[i].name == playerName && leaderboard[i].score == finalScore)
+        // highligh current player's entry in the leaderboard
+        if (leaderboard[i].name == playerName)
         {
             scoreText.setFillColor(sf::Color::Yellow);
             scoreText.setStyle(sf::Text::Bold);
@@ -248,6 +249,7 @@ void GameStateManager::loadLeaderboard()
             scoreText.setFillColor(sf::Color::White);
         }
         
+        //swhow ranking number, name, and score
         std::string rank = std::to_string(i + 1) + ". ";
         std::string scoreStr = rank + leaderboard[i].name + " - " + std::to_string(leaderboard[i].score);
         scoreText.setString(scoreStr);

@@ -7,24 +7,23 @@ PowerUp::PowerUp(PowerUpType t, sf::Texture* tex) : type(t)
     name = "powerup";
     life = true;
     sprite.setTexture(*tex);
-    
-    // Set origin to center of sprite
+
+    // cnter the sprite
     sf::Vector2u texSize = tex->getSize();
     sprite.setOrigin(texSize.x / 2.0f, texSize.y / 2.0f);
-    sprite.setScale(0.2f, 0.2f); // Scale down - adjust as needed
-    //sprite.setScale(0.3f, 0.3f); // Make them MUCH bigger temporarily
-    
-    // Random slow movement
+    sprite.setScale(0.2f, 0.2f); // resize sprite
+
+    // give slow random drifting movement
     dx = (rand() % 3 - 1) * 0.5f;
     dy = (rand() % 3 - 1) * 0.5f;
 }
 
 void PowerUp::update()
 {
-    x += dx;
-    y += dy;
-    
-    // Wrap around screen
+    x += dx;   // move horizontally
+    y += dy;   // move vertically
+
+    // wrap around edges
     if (x > W) x = 0;
     if (x < 0) x = W;
     if (y > H) y = 0;
@@ -33,8 +32,6 @@ void PowerUp::update()
 
 void PowerUp::draw(sf::RenderWindow& app)
 {
-    sprite.setPosition(x, y);
-    app.draw(sprite);
-    
-    
+    sprite.setPosition(x, y); // update sprite position
+    app.draw(sprite);         // render to window
 }
