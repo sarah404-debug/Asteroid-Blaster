@@ -4,8 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <fstream>
+#include <vector>
 
 enum class GameState { MAIN_MENU, PLAYING, GAME_OVER };
+
+struct ScoreEntry {
+    std::string name;
+    int score;
+};
 
 class GameStateManager
 {
@@ -26,8 +32,11 @@ private:
     sf::Text gameOverText;
     sf::Text finalScoreText;
     sf::Text restartText;
+    sf::Text leaderboardTitle;
+    std::vector<sf::Text> leaderboardTexts;
     
     int finalScore;
+    std::vector<ScoreEntry> leaderboard;
 
 public:
     GameStateManager();
@@ -45,6 +54,7 @@ public:
     
     void setFinalScore(int score) { finalScore = score; }
     void saveScore();
+    void loadLeaderboard();
     void resetForNewGame();
 };
 
