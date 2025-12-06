@@ -10,12 +10,12 @@ A classic space shooter game built with C++ and SFML where you navigate through 
 ## Table of Contents
 - [Features](#features)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
 - [Compilation](#compilation)
 - [How to Play](#how-to-play)
 - [Power-Ups](#power-ups)
 - [Game Mechanics](#game-mechanics)
 - [Project Structure](#project-structure)
+- [Object-Oriented Design](#object-oriented-design)
 - [Controls](#controls)
 - [Credits](#credits)
 
@@ -129,7 +129,7 @@ The game features three Pakistani-themed power-ups that spawn randomly:
 - `GameState.h/cpp`: Menu and leaderboard management
 - `scores.txt`: Persistent score storage (auto-generated)
 
-## 🎮 Controls
+##  Controls
 
 | Key | Action |
 |-----|--------|
@@ -151,23 +151,18 @@ The game demonstrates key OOP principles:
 - **Composition**: GameStateManager uses multiple game objects
 - **Dynamic Memory**: Smart pointer usage for entity management
 
-##  Future Enhancements
-
-- [ ] Sound effects and background music
-- [ ] Multiple weapon types
-- [ ] Boss battles
-- [ ] Difficulty levels
-- [ ] Multiplayer support
-- [ ] Better explosion effects
-- [ ] Combo system for consecutive hits
-
 ##  Credits
 
-**Developed by**: Sarah, Zainab ,Huzaifa
+**Developed by**: Sarah, Zainab, Huzaifa
 
 **Technologies Used**:
 - C++
 - SFML 2.5.0 (Simple and Fast Multimedia Library)
+
+
+**GitHub Repository**:
+- https://github.com/sarah404-debug/Asteroid-Blaster
+
 
 
 ##  License
@@ -176,3 +171,7 @@ This project is created for educational purposes as part of an OOP course projec
 
 
 *Destroy asteroids, collect power-ups, and dominate the leaderboard!*
+
+
+
+
