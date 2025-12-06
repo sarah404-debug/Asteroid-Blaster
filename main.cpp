@@ -1,5 +1,4 @@
 
-//////////////////// NEW
 #include <SFML/Graphics.hpp>
 #include <time.h>
 #include <list>
