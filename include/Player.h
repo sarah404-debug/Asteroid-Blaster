@@ -10,7 +10,7 @@ class Player : public Entity
 public:
     bool thrust;
     
-    // Power-up properties
+    // power-up properties
     bool hasShield;
     float shieldTimer;
     float speedBoostTimer;
@@ -20,7 +20,7 @@ public:
     Player();
     void update() override;
     
-    // Power-up methods
+    // power-up methods
     void activateSpeedBoost();
     void addLife(int& lives);
     void activateShield();
