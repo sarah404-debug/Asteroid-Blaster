@@ -1,4 +1,3 @@
-
 #include <SFML/Graphics.hpp>
 #include <time.h>
 #include <list>
@@ -17,15 +16,16 @@ using namespace sf;
 
 int main()
 {
-    srand(time(0));
+    srand(time(0)); // random seed
 
     RenderWindow app(VideoMode(W, H), "Asteroid Blaster!");
     app.setFramerateLimit(60);
 
-    // Game State Manager
+    // menu + game handling
     GameStateManager gameStateManager;
     gameStateManager.setupTexts(W, H);
 
+    // textures
     Texture t1,t2,t3,t4,t5,t6,t7;
     t1.loadFromFile("images/spaceship.png");
     t2.loadFromFile("images/bg11.png");
@@ -43,11 +43,10 @@ int main()
     tPakola.loadFromFile("images/pakola.png");
     tParatha.loadFromFile("images/paratha.png");
 
+    // font for UI
     Font font;
     if (!font.loadFromFile("fonts/arial.ttf"))
-    {
         return -1;
-    }
 
     int score = 0;
     Text scoreText;
@@ -63,6 +62,7 @@ int main()
 
     Sprite background(t2);
 
+    // animations
     Animation sExplosion(t3, 0,0,256,256, 48, 0.5);
     Animation sRock(t4, 0,0,64,64, 16, 0.2);
     Animation sRock_small(t6, 0,0,64,64, 16, 0.2);
@@ -74,29 +74,27 @@ int main()
     std::list<Entity*> entities;
     Player *p = nullptr;
 
-    // Function to start/restart game
+    // quick restart function
     auto startGame = [&]() {
-        // Clear entities
         for(auto e : entities) delete e;
         entities.clear();
-        
-        // Reset game variables
+
         score = 0;
         lives = 5;
-        
-        // Create asteroids
+
+        // spawn asteroids
         for(int i=0;i<10;i++)
         {
             Asteroid *a = new Asteroid();
             a->settings(sRock, rand()%W, rand()%H, rand()%360, 25);
             entities.push_back(a);
         }
-        
-        // Create player
+
+        // create player
         p = new Player();
         p->settings(sPlayer,200,200,0,20);
         entities.push_back(p);
-        
+
         gameStateManager.setGameState(GameState::PLAYING);
     };
 
@@ -107,14 +105,14 @@ int main()
         {
             if (event.type == Event::Closed)
                 app.close();
-            
+
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
                 app.close();
-            
-            // Handle text input for name
+
+            // name typing in menu
             gameStateManager.handleTextInput(event);
-            
-            // Handle Enter key
+
+            // pressing Enter in menus
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Return)
             {
                 if (gameStateManager.getCurrentState() == GameState::MAIN_MENU && 
@@ -127,8 +125,8 @@ int main()
                     gameStateManager.resetForNewGame();
                 }
             }
-            
-            // Shooting (only when playing)
+
+            // shooting
             if (gameStateManager.getCurrentState() == GameState::PLAYING)
             {
                 if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
@@ -140,17 +138,20 @@ int main()
             }
         }
 
-        // Game Logic - only when playing
+        // game logic
         if (gameStateManager.getCurrentState() == GameState::PLAYING)
         {
+            // movement
             if (Keyboard::isKeyPressed(Keyboard::Right)) p->angle+=3;
             if (Keyboard::isKeyPressed(Keyboard::Left))  p->angle-=3;
             if (Keyboard::isKeyPressed(Keyboard::Up)) p->thrust=true;
             else p->thrust=false;
 
+            // collision checks
             for(auto a:entities)
             for(auto b:entities)
             {
+                // bullet destroys asteroid
                 if (a->name=="asteroid" && b->name=="bullet")
                 if (isCollide(a,b))
                 {
@@ -158,11 +159,13 @@ int main()
                     b->life=false;
                     score++;
 
+                    // explosion animation
                     Entity *e = new Entity();
                     e->settings(sExplosion,a->x,a->y);
                     e->name="explosion";
                     entities.push_back(e);
 
+                    // small asteroids
                     for(int i=0;i<2;i++)
                     {
                         if (a->R==15) continue;
@@ -172,6 +175,7 @@ int main()
                     }
                 }
 
+                // player hit asteroid
                 if (a->name=="player" && b->name=="asteroid")
                 if (isCollide(a,b))
                 {
@@ -179,17 +183,19 @@ int main()
                     {
                         b->life=false;
 
+                        // ship explosion
                         Entity *e = new Entity();
                         e->settings(sExplosion_ship,a->x,a->y);
                         e->name="explosion";
                         entities.push_back(e);
 
+                        // respawn player
                         p->settings(sPlayer,W/2,H/2,0,20);
                         p->dx=0;
                         p->dy=0;
-                        
+
                         lives--;
-                        
+
                         if (lives <= 0)
                         {
                             gameStateManager.setFinalScore(score);
@@ -199,10 +205,11 @@ int main()
                     }
                     else
                     {
-                        b->life=false;
+                        b->life=false; // shield absorbs hit
                     }
                 }
 
+                // player picks up powerup
                 if (a->name=="player" && b->name=="powerup")
                 if (isCollide(a,b))
                 {
@@ -210,29 +217,27 @@ int main()
                     if (pw)
                     {
                         if (pw->type == PowerUpType::CHAI)
-                        {
                             p->activateSpeedBoost();
-                        }
                         else if (pw->type == PowerUpType::PAKOLA)
-                        {
                             p->addLife(lives);
-                        }
                         else if (pw->type == PowerUpType::PARATHA)
-                        {
                             p->activateShield();
-                        }
+
                         pw->life = false;
                     }
                 }
             }
 
+            // change player animation
             if (p->thrust) p->anim = sPlayer_go;
             else p->anim = sPlayer;
 
+            // remove ended explosions
             for(auto e:entities)
             if (e->name=="explosion")
             if (e->anim.isEnd()) e->life=false;
 
+            // random asteroid spawn
             if (rand()%200==0)
             {
                 Asteroid *a = new Asteroid();
@@ -240,24 +245,23 @@ int main()
                 entities.push_back(a);
             }
 
+            // random powerup spawn
             if (rand()%400==0)
             {
                 int powerupCount = 0;
                 for(auto e : entities)
-                {
                     if (e->name == "powerup")
                         powerupCount++;
-                }
-                
+
                 if (powerupCount < 5)
                 {
                     PowerUpType randomType = static_cast<PowerUpType>(rand() % 3);
-                    
+
                     Texture* tex = nullptr;
                     if (randomType == PowerUpType::CHAI) tex = &tChai;
                     else if (randomType == PowerUpType::PAKOLA) tex = &tPakola;
                     else tex = &tParatha;
-                    
+
                     PowerUp* pw = new PowerUp(randomType, tex);
                     pw->x = rand() % W;
                     pw->y = rand() % H;
@@ -267,6 +271,7 @@ int main()
                 }
             }
 
+            // update all entities
             for(auto i=entities.begin(); i!=entities.end();)
             {
                 Entity *e = *i;
@@ -274,29 +279,33 @@ int main()
                 e->update();
                 e->anim.update();
 
-                if (e->life==false) {i=entities.erase(i); delete e;}
+                if (!e->life) { i = entities.erase(i); delete e; }
                 else i++;
             }
         }
 
-        // Drawing
+        // DRAW
         app.clear();
         app.draw(background);
 
+        // menu screens
         if (gameStateManager.getCurrentState() == GameState::MAIN_MENU)
         {
             gameStateManager.drawMainMenu(app);
         }
         else if (gameStateManager.getCurrentState() == GameState::PLAYING)
         {
+            // entities
             for(auto i:entities)
                 i->draw(app);
 
+            // score
             std::stringstream ss;
             ss << "Score: " << score;
             scoreText.setString(ss.str());
             app.draw(scoreText);
 
+            // hearts UI
             for(int i = 0; i < lives; i++)
             {
                 Sprite heartSprite(tHeart);
@@ -305,6 +314,7 @@ int main()
                 app.draw(heartSprite);
             }
 
+            // shield effect
             if (p->hasShield)
             {
                 CircleShape shieldCircle(p->R + 10);
@@ -324,7 +334,7 @@ int main()
         app.display();
     }
 
-    // Cleanup
+    // cleanup
     for(auto e : entities) delete e;
 
     return 0;

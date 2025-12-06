@@ -1,11 +1,6 @@
-sarah: 29
-huzaifa: 24
-zainab: 32
-sarah: 100
-myrah: 10
-myrah: 41
-sarah: 13
-meesum: 41
-sarah:3
-sarah:15
-sarah:28
+sarah:29
+huzaifa:24
+zainab:32
+meesum:27
+romaisa:14
+myrah:20
