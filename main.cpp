@@ -31,7 +31,7 @@ int main()
     t2.loadFromFile("images/bg11.png");
     t3.loadFromFile("images/explosions/type_C.png");
     t4.loadFromFile("images/rock.png");
-    t5.loadFromFile("images/fire_blue.png");
+    t5.loadFromFile("images/bullet.png");
     t6.loadFromFile("images/rock_small.png");
     t7.loadFromFile("images/explosions/type_B.png");
 
